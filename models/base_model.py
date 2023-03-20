@@ -12,12 +12,20 @@ class BaseModel:
     for other classes created in this package.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializer/Constructor of the BaseModel class.
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                elif key == 'created_at' or key == 'updated_at':
+                    value = datetime.datetime.fromisoformat(value)
+                setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """Returns the string representation of the BaseModel class,

@@ -87,3 +87,12 @@ class TestBaseModel(unittest.TestCase):
         self.assertRegex(tmp_dict['updated_at'], ".{4}-.{2}-.{5}:.{2}:.{9}")
         self.assertRegex(tmp_dict['id'], ".{8}-.{4}-.{4}-.{4}-.{12}")
         self.assertRegex(tmp_dict['created_at'], ".{4}-.{2}-.{5}:.{2}:.{9}")
+
+    def test_kwargs(self):
+        """Tests the use of keyword arguments in the instantiation of BaseModel
+        objects and the re-creation of instances from dictionary
+        representations.
+        """
+        test_model_2 = BaseModel()
+        test_m
+
