@@ -94,5 +94,7 @@ class TestBaseModel(unittest.TestCase):
         representations.
         """
         test_model_2 = BaseModel()
-        test_m
-
+        test_model_3 = BaseModel(**test_model_2.to_dict())
+        self.assertTrue(test_model_2.id == test_model_3.id)
+        self.assertTrue(test_model_2.created_at == test_model_3.created_at)
+        self.assertTrue(test_model_2.updated_at == test_model_3.updated_at)
