@@ -34,6 +34,7 @@ class HBNBCommand(cmd.Cmd):
                 cls_to_call = eval(line)
             except (NameError, SyntaxError):
                 print("** class doesn't exist **")
+                return
             obj = cls_to_call()
             obj.save()
             print(obj.id)
@@ -54,6 +55,7 @@ class HBNBCommand(cmd.Cmd):
                 cls = eval(args[0])
             except NameError:
                 print("** class doesn't exist **")
+                return
             if len(args) < 2:
                 print("** instance id missing **")
             else:
@@ -82,8 +84,10 @@ class HBNBCommand(cmd.Cmd):
                 cls = eval(args[0])
             except NameError:
                 print("** class doesn't exist **")
+                return
             if len(args) < 2:
                 print("** instance id missing **")
+                return
             else:
                 id = args[1]
                 key = f"{cls.__name__}.{id}"
@@ -134,8 +138,10 @@ class HBNBCommand(cmd.Cmd):
                 cls = eval(args[0])
             except NameError:
                 print("** class doesn't exist **")
+                return
             if len(args) < 2:
                 print("** instance id missing **")
+                return
             else:
                 id = args[1]
                 key = f"{cls.__name__}.{id}"
@@ -144,7 +150,10 @@ class HBNBCommand(cmd.Cmd):
                     if len(args) < 3:
                         print("** attribute name missing **")
                     else:
-                        stripped = args[3].strip('"')
+                        try:
+                            stripped = args[3].strip('"')
+                        except IndexError:
+                            stripped = ""
                         obj = stored_objects[key]
                         try:
                             attr_type = type(getattr(obj, args[2]))
