@@ -150,10 +150,10 @@ class HBNBCommand(cmd.Cmd):
                     if len(args) < 3:
                         print("** attribute name missing **")
                     else:
-                        try:
-                            stripped = args[3].strip('"')
-                        except IndexError:
-                            stripped = ""
+                        if len(args) < 4:
+                            print("** value missing **")
+                            return
+                        stripped = args[3].strip('"')
                         obj = stored_objects[key]
                         try:
                             attr_type = type(getattr(obj, args[2]))
@@ -165,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
         else:
-            print("** class name is missing **")
+            print("** class name missing **")
 
     def help_update(self):
         print("Usage: update <class name> <id> <attribute name> \"<attribute"
